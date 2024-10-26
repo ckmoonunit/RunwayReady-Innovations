@@ -1,0 +1,155 @@
+/* Base styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    display: flex; /* Enable flexbox for body */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Ensure full height of the viewport */
+    background-color: var(--body-bg); /* Set body background color */
+    color: var(--header-text); /* Set text color for the body */
+}
+
+header {
+    display: flex;
+    align-items: center; /* Vertically center items in the header */
+    justify-content: space-between; /* Space out logo/text and navigation */
+    padding: 5px 30px; /* Adjusted padding for better spacing */
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color); /* Add a bottom border for separation */
+}
+
+.header-logo {
+    display: flex;
+    align-items: center; /* Align logo and text vertically */
+}
+
+.logo {
+    max-width: 70px; /* Adjust to a smaller size for better fitting */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between logo and text */
+}
+
+.header-title {
+    font-size: 24px; /* Adjusted font size for better visibility */
+    color: var(--header-text); /* Use your theme color */
+}
+
+nav {
+    display: flex; /* Makes the menu horizontal */
+    margin: 0; /* Remove margin to help reduce height */
+}
+
+nav ul {
+    list-style-type: none; /* Remove bullets from the list */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Make the list horizontal */
+}
+
+nav > ul > li {
+    position: relative; /* Position for submenu */
+    display: inline-block; /* Horizontal layout */
+    margin: 0 15px; /* Space between menu items */
+}
+
+nav a {
+    color: var(--header-text);
+    text-decoration: none;
+    padding: 10px 0px; /* Padding for links */
+    transition: color 0.3s;
+    font-size: 16px; /* Adjust font size */
+}
+
+nav a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Submenu styles */
+.submenu {
+    display: none; /* Hide submenu by default */
+    position: absolute; /* Position submenu */
+    top: 100%; /* Position below the parent menu item */
+    left: 0;
+    background-color: var(--container-bg); /* Same as container background */
+    border: 1px solid var(--border-color); /* Optional border */
+    z-index: 10; /* Bring to front */
+    white-space: nowrap; /* Prevent line breaks in submenu items */
+}
+
+nav > ul > li:hover .submenu {
+    display: block; /* Show submenu on hover */
+}
+
+.submenu li {
+    display: block; /* Stack submenu items vertically */
+}
+
+.submenu a {
+    padding: 10px; /* Padding for submenu items */
+    white-space: nowrap; /* Keep submenu text on one line */
+}
+
+/* Optional: Styling the submenu links */
+.submenu a:hover {
+    background-color: #007BFF; /* Change background on hover */
+    color: #ffffff; /* Change text color on hover */
+}
+
+/* Main content area */
+.main-content {
+    flex: 1; /* Allow main content to grow and fill space */
+    padding: 20px; /* Add padding around the main content */
+    max-width: 800px; /* Set a max width for the main content */
+    margin-left: 0 auto; /* Center the main content */
+}
+
+/* Paragraph styles */
+.main-content p {
+    margin: 0; /* Add vertical spacing between paragraphs */
+    line-height: 1.5; /* Increase line height for better readability */
+    text-align: justify; /* Justify text for a cleaner look */
+    color: #f3f2f2; /* Darker text color for better contrast */
+}
+
+/* Footer styles */
+footer {
+    background-color: var(--header-bg); /* Use the same background as the header */
+    color: var(--header-text); /* Use the same text color as the header */
+    text-align: center; /* Center the text */
+    padding: 10px 0; /* Add some padding */
+    width: 100%; /* Full width */
+    position: relative; /* Use relative positioning */
+}
+
+/* Dark and light mode support */
+:root {
+    --header-bg: #007BFF; /* Light mode header background */
+    --header-text: #ffffff; /* Light mode header text */
+    --container-bg: #ffffff; /* Light mode container background */
+    --border-color: #ddd; /* Light mode border color */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --header-bg: #222; /* Dark mode header background */
+        --header-text: #ffffff; /* Dark mode header text */
+        --container-bg: #222; /* Dark mode container background */
+        --border-color: #222; /* Dark mode border color */
+        --body-bg: #222; /* Dark mode body background */
+    }
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature {
+        flex: 1 1 80%; /* Stack features in small screens */
+        margin: 10px 0;
+    }
+}
