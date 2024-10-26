@@ -1,0 +1,12 @@
+{
+    "name": "runway-ready-innovations",
+    "version": "1.0.0",
+    "description": "A project for runway ready innovations",
+    "main": "index.html",
+    "scripts": {
+      "start": "echo 'No start script defined'",
+      "test": "echo 'No tests defined'"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+  }
