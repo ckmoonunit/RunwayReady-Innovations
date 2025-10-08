@@ -15,7 +15,7 @@ header {
     display: flex;
     align-items: center; /* Vertically center items in the header */
     justify-content: space-between; /* Space out logo/text and navigation */
-    padding: 5px 30px; /* Adjusted padding for better spacing */
+    padding: 5px 20px; /* Adjusted padding for better spacing */
     background-color: var(--header-bg);
     border-bottom: 1px solid var(--border-color); /* Add a bottom border for separation */
     justify-content: center;
