@@ -143,18 +143,49 @@ footer {
     }
 }
 
-/* Responsive design adjustments */
+/* ===== Mobile polish ===== */
 @media (max-width: 768px) {
-    .features {
-        flex-direction: column;
-        align-items: center;
-    }
+  /* Header & nav: let items wrap and breathe */
+  header { padding: 8px 14px; }
+  nav ul { flex-wrap: wrap; gap: 6px 14px; }
+  nav > ul > li { margin: 0 6px; }
+  nav a { padding: 8px 0; font-size: 15px; }
 
-    .feature {
-        flex: 1 1 80%; /* Stack features in small screens */
-        margin: 10px 0;
-    }
+  /* Hero: smaller title, centered copy width */
+  .hero { padding: 18px 16px 28px; }
+  .hero h1 { font-size: clamp(22px, 6vw, 28px); }
+  .hero .tagline { max-width: 60ch; margin: 0 auto 14px; }
+
+  /* Buttons: stack + full-width tap targets */
+  .actions { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .actions .btn, .actions .link { width: 100%; text-align: center; padding: 12px; }
+
+  /* Feature cards: single column, softer shadow */
+  .feature-grid { grid-template-columns: 1fr; gap: 14px; padding: 0 16px 32px; }
+  .card { border-radius: 12px; box-shadow: 0 6px 16px rgba(0,0,0,.28); }
+
+  /* Main content: better margins + readable paragraphs */
+  .main-content { padding: 16px; max-width: 100%; margin: 0; }
+  .main-content p { text-align: left; line-height: 1.65; }
+
+  /* Lists nested with your .indented blocks */
+  .indented { margin-left: 18px; }
+
+  /* Make any iframe (e.g., YouTube) responsive */
+  iframe[title="YouTube video player"] {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+    border: 0;
+  }
 }
+
+/* Optional: tiny phone tweaks */
+@media (max-width: 420px) {
+  .hero h1 { font-size: 22px; }
+  nav a { font-size: 14px; }
+}
+
 
 :root{
   --bg:#1d1f21;          /* dark background */
@@ -277,13 +308,50 @@ a:hover, a:focus{
 }
 .nav-header a:hover{ color: var(--header-text); text-decoration: underline; }
 
-.submenu{
-  background-color: var(--container-bg);
-  border: 1px solid var(--border-color);
+/* --- Dropdown polish --- */
+nav > ul > li { position: relative; }
+
+nav > ul > li > a {
+  position: relative;
+  padding: 10px 4px;
 }
-.submenu a{ color: var(--header-text); }
+
+/* show on hover OR keyboard focus */
 nav > ul > li:hover .submenu,
-nav > ul > li:focus-within .submenu{ display:block; } /* keep keyboard open */
+nav > ul > li:focus-within .submenu { display: block; }
+
+.submenu{
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  margin-left: 0;
+  min-width: 240px;
+  padding-left:0;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.4);
+  z-index: 20;
+}
+
+.submenu li { display: block; }
+
+.submenu a{
+  display: block;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.submenu a:hover{
+  background: #30343a;
+  color: #fff;
+  text-decoration: none;
+}
+
 
 /* --- Limit colored links to content ONLY (stop overriding nav) --- */
 .main-content a, .hero a, .contact a, footer a {
