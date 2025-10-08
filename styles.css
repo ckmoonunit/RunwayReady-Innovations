@@ -127,7 +127,7 @@ footer {
 
 /* Dark and light mode support */
 :root {
-    --header-bg: #007BFF; /* Light mode header background */
+    --header-bg: #4e545c; /* Light mode header background */
     --header-text: #ffffff; /* Light mode header text */
     --container-bg: #ffffff; /* Light mode container background */
     --border-color: #ddd; /* Light mode border color */
