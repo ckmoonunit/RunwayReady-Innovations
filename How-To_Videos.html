@@ -1,77 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Runway Ready Innovations</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How-To Videos — Runway Ready Innovations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-logo">
-            <img src="RRI3.png" alt="Your Company Logo" class="logo">
-            <span class="header-title">Runway Ready Innovations</span>
-        </div>
-    </header>
-    
-    <header class="nav-header">
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li>
-                    <a href="igbt-tester.html">Testers</a>
-                    <ul class="submenu">
-                        <li><a href="igbt-tester.html">IGBT Functionality Testers</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="How-To_Videos.html">How-To Videos</a>
-                    <ul class="submenu">
-                        <li><a href="How-To_Videos_JTP4.html">Oshkosh JTP 4</a></li>
-                        <li><a href="How-To_Videos_JTP3.html">Oshkosh JTP 3</a></li>
-                        <li><a href="igbt-Tester.html">Bench Test</a></li>
-                    </ul>
-                </li>
-                <li><a href="ContactUs.html">Contact</a></li>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="index.html" class="brand">
+        <img src="RRI3.png" alt="Runway Ready Innovations" class="brand-logo">
+        <span class="brand-name">Runway Ready Innovations</span>
+      </a>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="igbt-tester.html">Testers</a>
+            <ul class="submenu">
+              <li><a href="igbt-tester.html">IGBT Functionality Tester</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <div class="main-content">
-        <section id="intro">
-            <style>
-                .indented{margin-left: 40px;}
-            </style>
-
-            <h2>
-                Bench Test
-            </h2>
-
-            <div class = "indented"; class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/a_rJIhyRTZk?si=70T-57i-SLRvR7Ls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-
-            <h2>
-                Field Test Oshkosh Jetpower 3
-            </h2>
-
-            <div class = "indented"; class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/a_rJIhyRTZk?si=70T-57i-SLRvR7Ls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-
-            <h2>
-                Field Test Oshkosh Jetpower 4
-            </h2>
-
-            <div class = "indented"; class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/a_rJIhyRTZk?si=70T-57i-SLRvR7Ls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </section>
+          </li>
+          <li>
+            <a href="How-To_Videos.html" class="active">How-To Videos</a>
+            <ul class="submenu">
+              <li><a href="How-To_Videos_JTP4.html">Oshkosh JTP-4 Field Test</a></li>
+              <li><a href="How-To_Videos_JTP3.html">Oshkosh JTP-3 Field Test</a></li>
+              <li><a href="How-To_Videos.html">Bench Test</a></li>
+            </ul>
+          </li>
+          <li><a href="ContactUs.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
+  <main>
+    <div class="video-hub">
+      <span class="eyebrow">Resources</span>
+      <h1>How-To Videos</h1>
+      <p class="lead">
+        Step-by-step video guides for bench testing and field diagnostics on Oshkosh JTP-3 and JTP-4 units.
+      </p>
 
-    <footer>
-        <p>&copy; 2024 Runway Ready Innovations. All rights reserved.</p>
-    </footer>
+      <div class="video-card-grid">
+
+        <!-- Bench Test — embedding disabled, use click-through thumbnail -->
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=jnR-OpPHfi0"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="yt-thumb-link"
+             aria-label="Watch bench test on YouTube">
+            <img src="https://img.youtube.com/vi/jnR-OpPHfi0/hqdefault.jpg" alt="Bench Test" class="yt-thumb-img">
+            <div class="yt-play-overlay">
+              <div class="yt-play-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+          </a>
+          <div class="video-card-body">
+            <h3>Bench Test</h3>
+            <p>Full bench test walkthrough for the IGBT Functionality Tester.</p>
+          </div>
+        </div>
+
+        <!-- JTP-3 Field Test -->
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=a_rJIhyRTZk"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="yt-thumb-link"
+             aria-label="Watch JTP-3 field test on YouTube">
+            <img src="https://img.youtube.com/vi/a_rJIhyRTZk/hqdefault.jpg" alt="Field Test — Oshkosh JTP-3" class="yt-thumb-img">
+            <div class="yt-play-overlay">
+              <div class="yt-play-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+          </a>
+          <div class="video-card-body">
+            <h3>Field Test — Oshkosh JTP-3</h3>
+            <p>How to test an IGBT fault on a JTP-3 unit in the field.</p>
+          </div>
+        </div>
+
+        <!-- JTP-4 Field Test -->
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=48DDnbKHog4"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="yt-thumb-link"
+             aria-label="Watch JTP-4 field test on YouTube">
+            <img src="https://img.youtube.com/vi/48DDnbKHog4/hqdefault.jpg" alt="Field Test — Oshkosh JTP-4" class="yt-thumb-img">
+            <div class="yt-play-overlay">
+              <div class="yt-play-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+          </a>
+          <div class="video-card-body">
+            <h3>Field Test — Oshkosh JTP-4</h3>
+            <p>How to test an IGBT fault on a JTP-4 unit in the field.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Runway Ready Innovations. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>

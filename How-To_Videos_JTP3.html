@@ -1,119 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Runway Ready Innovations</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oshkosh JTP-3 Field Test — Runway Ready Innovations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-logo">
-            <img src="RRI3.png" alt="Your Company Logo" class="logo">
-            <span class="header-title">Runway Ready Innovations</span>
-        </div>
-    </header>
-    
-    <header class="nav-header">
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li>
-                    <a href="igbt-tester.html">Testers</a>
-                    <ul class="submenu">
-                        <li><a href="igbt-tester.html">IGBT Functionality Testers</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="How-To_Videos.html">How-To Videos</a>
-                    <ul class="submenu">
-                        <li><a href="How-To_Videos_JTP4.html">Oshkosh JTP 4</a></li>
-                        <li><a href="How-To_Videos_JTP3.html">Oshkosh JTP 3</a></li>
-                        <li><a href="igbt-Tester.html">Bench Test</a></li>
-                    </ul>
-                </li>
-                <li><a href="ContactUs.html">Contact</a></li>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="index.html" class="brand">
+        <img src="RRI3.png" alt="Runway Ready Innovations" class="brand-logo">
+        <span class="brand-name">Runway Ready Innovations</span>
+      </a>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="igbt-tester.html">Testers</a>
+            <ul class="submenu">
+              <li><a href="igbt-tester.html">IGBT Functionality Tester</a></li>
             </ul>
-        </nav>
-    </header>
-           
-    <style>
-        .indented{margin-left: 40px;}
-    </style>
-
-    <div class="main-content">
-        <section id="intro">
-            <h2>Oshkosh Jetpower 3 Field Test</h2>
-            <p>
-                The video and written instructions  below demonstrates how to field test a JTP 3 unit that's triggering an IGBT Fault.
-            </p>
-            <br>
-
-            <div class = "indented"><li>
-                Preparation: Power down the frequency converter and disconnect the input voltage source. Connect IGBT Functionality Tester to a 120VAC source.
-            </li></div>
-            <div class = "indented"><li>
-                Disconnect feedback bus wires: There is a DC bus connection for each heatsink, remove the bus connection for the heatsink that is being tested. 
-                i.e. 313A or 315 will be removed for that heatsink. 
-                Click <a href="#" onclick="openImage('BusJTP3.jpg')">here</a> to view the bus wire layout.
-                 <!-- Hidden Image Popup -->
-                <div id="imageModal" class="modal">
-                <span class="close">&times;</span>
-                <img class="modal-content" id="modalImg">
-                </div>
-
-                <script>
-                    function openImage(src) {
-                    const modal = document.getElementById("imageModal");
-                    const modalImg = document.getElementById("modalImg");
-
-                    // If this image is already showing, hide it
-                    if (modal.style.display === "block" && modalImg.src.includes(src)) {
-                        modal.style.display = "none";
-                        modalImg.src = "";
-                        return;
-                    }
-
-                    // Otherwise, show it
-                    modal.style.display = "block";
-                    modalImg.src = src;
-                    }
-
-                    // Close button handler
-                    document.addEventListener("DOMContentLoaded", () => {
-                    const modal = document.getElementById("imageModal");
-                    const closeBtn = document.querySelector(".close");
-
-                    closeBtn.onclick = () => {
-                        modal.style.display = "none";
-                        document.getElementById("modalImg").src = "";
-                    };
-
-                    // Clicking outside image closes it
-                    window.onclick = (event) => {
-                        if (event.target === modal) {
-                        modal.style.display = "none";
-                        document.getElementById("modalImg").src = "";
-                        }
-                    };
-                    });
-                </script>
-                <!-- End Hidden Image Popup -->
-                Next, remove the appropriate gate connections on the IGBT
-            </li></div>
-            <div class = "indented"><li>
-                Connect the IGBT Functionality Tester: Connect IGBT functionality tester and the tester button.by following the printed diagram on the tester.
-            </li></div>
-        </section>
-
-        <div class = "indented";>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/a_rJIhyRTZk?si=70T-57i-SLRvR7Ls" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+          </li>
+          <li>
+            <a href="How-To_Videos.html" class="active">How-To Videos</a>
+            <ul class="submenu">
+              <li><a href="How-To_Videos_JTP4.html">Oshkosh JTP-4 Field Test</a></li>
+              <li><a href="How-To_Videos_JTP3.html">Oshkosh JTP-3 Field Test</a></li>
+              <li><a href="How-To_Videos.html">Bench Test</a></li>
+            </ul>
+          </li>
+          <li><a href="ContactUs.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
+  <main>
+    <div class="field-guide">
+      <span class="hero-eyebrow">Field Guide</span>
+      <h1>Oshkosh JTP-3 Field Test</h1>
+      <p class="lead">
+        The following steps and video demonstrate how to field test a JTP-3 unit that is triggering an IGBT fault.
+        Follow each step carefully before connecting the tester.
+      </p>
 
-    <footer>
-        <p>&copy; 2024 Runway Ready Innovations. All rights reserved.</p>
-    </footer>
+      <ol class="steps">
+        <li class="step">
+          <strong>Preparation:</strong> Power down the frequency converter and disconnect the input voltage
+          source. Connect the IGBT Functionality Tester to a 120 VAC source.
+        </li>
+        <li class="step">
+          <strong>Disconnect the DC bus wires:</strong> There is a DC bus connection for each heatsink.
+          Remove the bus connection for the heatsink being tested (e.g., wire 313A or 315 for that heatsink).
+          <a href="#" onclick="openModal('BusJTP3.jpg'); return false;">View the bus wire layout diagram</a>.
+          Next, remove the appropriate gate connections on the IGBT.
+        </li>
+        <li class="step">
+          <strong>Connect the IGBT Functionality Tester:</strong> Follow the printed diagram on the tester
+          to connect the tester and the tester button to the correct terminals.
+        </li>
+      </ol>
+
+      <!-- Video -->
+      <a href="https://www.youtube.com/watch?v=a_rJIhyRTZk"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="yt-thumb-link"
+         aria-label="Watch Oshkosh JTP-3 field test on YouTube">
+        <img src="https://img.youtube.com/vi/a_rJIhyRTZk/hqdefault.jpg" alt="Oshkosh JTP-3 IGBT Field Test" class="yt-thumb-img">
+        <div class="yt-play-overlay">
+          <div class="yt-play-btn">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <span class="yt-play-label">Watch on YouTube</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-label="Bus wire layout diagram">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <img class="modal-content" id="modalImg" src="" alt="Bus wire layout diagram">
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Runway Ready Innovations. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function openModal(src) {
+      const modal = document.getElementById('imageModal');
+      const img   = document.getElementById('modalImg');
+      img.src = src;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('open');
+      document.getElementById('modalImg').src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
 </body>
 </html>
