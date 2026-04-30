@@ -674,24 +674,119 @@ footer a:hover { color: rgba(255,255,255,.7); text-decoration: underline; }
 }
 .modal-close:hover { background: rgba(255,255,255,.24); }
 
+/* ===== Hamburger Button ===== */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+  transition: background .2s;
+}
+.nav-toggle:hover { background: rgba(255,255,255,.1); }
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255,255,255,.85);
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform .28s ease, opacity .2s ease, width .2s ease;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; width: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
+
+  /* Header */
   .site-header .inner { padding: 0 16px; }
-  .brand-name { font-size: 0.9rem; }
-  .site-nav > ul > li > a { padding: 7px 9px; font-size: 0.82rem; }
+  .brand-name { font-size: 0.88rem; }
+  .nav-toggle { display: flex; }
 
-  .hero { padding: 52px 16px 48px; }
-  .feature-section { padding: 52px 16px; }
-  .about-section { padding: 52px 16px; }
-  .field-guide, .contact-page { padding-left: 16px; padding-right: 16px; }
-  .video-section { padding: 40px 16px 56px; }
+  /* Mobile nav — drops below header */
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 66px;
+    left: 0;
+    right: 0;
+    background: var(--navy-mid);
+    border-bottom: 1px solid var(--navy-border);
+    padding: 8px 12px 18px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.35);
+    z-index: 99;
+  }
+  .site-nav.open { display: block; }
+  .site-nav ul { flex-direction: column; gap: 2px; }
+  .site-nav > ul > li > a {
+    padding: 13px 14px;
+    font-size: 1rem;
+    border-radius: var(--radius-sm);
+  }
+  .site-nav .submenu { display: none !important; }
 
-  .step { padding-left: 58px; }
-  .step::before { width: 28px; height: 28px; line-height: 25px; font-size: 0.8rem; }
+  /* Hero */
+  .hero { padding: 48px 20px 44px; }
+  .hero .tagline { font-size: 1rem; margin-bottom: 28px; }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero-actions .btn { text-align: center; padding: 14px 20px; font-size: 0.95rem; }
 
-  .trusted-logos { gap: 22px; font-size: 0.85rem; }
+  /* Trusted logos — 3-across grid */
+  .trusted { padding: 20px 16px; }
+  .trusted-logos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px 8px;
+    text-align: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Feature section */
+  .feature-section { padding: 48px 16px; }
+  .feature-grid { grid-template-columns: 1fr; gap: 12px; }
+  .card { padding: 20px; }
+
+  /* About */
+  .about-section { padding: 48px 20px; }
+
+  /* Product page */
+  .product-header { padding: 40px 20px 36px; text-align: left; }
+  .product-header .inner-text { text-align: left; }
+  .product-links { flex-direction: column; gap: 8px; }
+  .product-link-item { justify-content: flex-start; }
+  .video-section { padding: 32px 16px 48px; }
+
+  /* How-To hub */
+  .video-hub { padding: 40px 16px 56px; }
+  .video-card-grid { grid-template-columns: 1fr; gap: 16px; }
+
+  /* Field guides */
+  .field-guide { padding: 40px 16px 60px; }
+  .steps { gap: 10px; margin-bottom: 32px; }
+  .step { padding: 16px 16px 16px 54px; font-size: 0.9rem; }
+  .step::before { width: 28px; height: 28px; line-height: 25px; font-size: 0.78rem; left: 14px; top: 16px; }
+
+  /* Contact */
+  .contact-page { padding: 40px 16px 60px; }
+  .contact-card, .form-card { padding: 22px; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+
+  /* Inputs: bump font to 16px to prevent iOS auto-zoom */
+  .form-input, .form-select, .form-textarea { font-size: 1rem; }
 }
-@media (max-width: 480px) {
-  .hero-actions { flex-direction: column; align-items: center; }
-  .hero-actions .btn { width: 100%; text-align: center; }
+
+@media (max-width: 420px) {
+  h1 { font-size: 1.75rem; }
+  .brand-name { font-size: 0.8rem; }
+  .trusted-logos { grid-template-columns: repeat(2, 1fr); font-size: 0.7rem; }
+  .hero { padding: 36px 16px 36px; }
+  .section-header h2 { font-size: 1.3rem; }
 }
