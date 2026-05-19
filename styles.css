@@ -1121,6 +1121,45 @@ footer a:hover { color: rgba(255,255,255,.7); text-decoration: underline; }
   line-height: 1.55;
 }
 
+/* Phone input with +1 country-code prefix */
+.phone-input-wrap {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  overflow: hidden;
+}
+.phone-input-wrap:focus-within {
+  border-color: var(--blue);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(20,85,200,.1);
+}
+.phone-prefix {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+  color: var(--text-mid);
+  font-weight: 600;
+  font-size: 0.9rem;
+  user-select: none;
+  flex-shrink: 0;
+}
+.phone-input.form-input {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  flex: 1;
+}
+.phone-input.form-input:focus {
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+
 /* Inline error message in the order summary card */
 .order-error {
   background: #FEF2F2;
