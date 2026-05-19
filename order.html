@@ -44,27 +44,28 @@
     </div>
   </header>
 
+  <!-- Full-page loading overlay shown while we get a payment token -->
+  <div id="loadingOverlay" class="loading-overlay" hidden aria-live="polite" aria-busy="true">
+    <div class="loading-content">
+      <div class="spinner" role="status" aria-label="Loading"></div>
+      <p class="loading-text">Connecting you to secure payment portal&hellip;</p>
+      <p class="loading-subtext">Please don't close this window.</p>
+    </div>
+  </div>
+
   <main>
     <div class="order-page">
-
-      <!-- TEST MODE banner — only visible when TEST_MODE is true -->
-      <div id="testModeBanner" class="test-banner" hidden>
-        <strong>TEST MODE ACTIVE.</strong>
-        Prices on this page are placeholders ($1) for end-to-end testing.
-        Real customers should not be ordering right now. To go live, set
-        <code>TEST_MODE = false</code> in this page's script.
-      </div>
 
       <div class="order-intro">
         <span class="eyebrow">Order Online</span>
         <h1>Order Your IGBT Functionality Tester</h1>
         <p class="lead">
-          Submit your order below. We'll email an invoice from Authorize.Net within one business day,
-          payable by card or eCheck (bank transfer). Units ship after payment clears.
+          Fill in your details below, then continue to our secure payment page to pay by
+          credit card or eCheck (bank transfer). Units ship after payment clears.
         </p>
       </div>
 
-      <form id="orderForm" class="order-layout" action="https://formspree.io/f/xlgzranb" method="POST">
+      <form id="orderForm" class="order-layout" novalidate>
 
         <!-- ============ Left Column: Order Form ============ -->
         <div class="order-form-col">
@@ -294,29 +295,22 @@
             </div>
 
             <p class="summary-note" id="summaryNote">
-              We'll send an invoice from Authorize.Net to your email within one business day.
-              You can pay by credit card or eCheck (bank transfer).
+              Click below to continue to our secure payment page. You'll be able to pay by
+              credit card or eCheck (bank transfer) on the next screen.
             </p>
 
-            <button type="submit" class="btn btn-primary btn-submit-order">
-              Submit Order Request
+            <div id="orderError" class="order-error" hidden></div>
+
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-submit-order">
+              Continue to Payment
             </button>
 
             <p class="summary-fineprint">
-              Submitting this form sends us your order details. No payment is taken on this page.
-              You'll pay through the Authorize.Net invoice we email you.
+              Payments are processed securely by Authorize.Net. We never see your card details.
+              By continuing, you agree to be charged the total shown above.
             </p>
           </div>
         </aside>
-
-        <!-- ============ Hidden fields for Formspree email ============ -->
-        <input type="hidden" id="hf_subject" name="_subject" value="New Order — RRI Website">
-        <input type="hidden" id="hf_product" name="product" value="IGBT Functionality Tester">
-        <input type="hidden" id="hf_unit_price" name="unit_price_usd" value="">
-        <input type="hidden" id="hf_subtotal" name="subtotal_usd" value="">
-        <input type="hidden" id="hf_shipping" name="shipping_usd" value="">
-        <input type="hidden" id="hf_total" name="total_usd" value="">
-        <input type="hidden" id="hf_test_mode" name="test_mode" value="false">
 
       </form>
 
@@ -332,37 +326,27 @@
   <!-- =================== Pricing & Form Logic =================== -->
   <script>
     // ============================================================
-    // TEST_MODE: set to true for $1 end-to-end testing.
-    // Flip to false when ready to go live with real prices.
+    // PAYMENT_WORKER_URL: the Cloudflare Worker endpoint that
+    // creates Authorize.Net hosted-payment-page tokens.
+    //
+    // After you deploy the Worker in Cloudflare, replace this
+    // value with your Worker's URL (something like
+    // https://runwayready-payment.<account>.workers.dev).
     // ============================================================
-    const TEST_MODE = true;
+    const PAYMENT_WORKER_URL = 'https://runwayreadypaymentworker.knightcorrick.workers.dev/create-payment';
 
-    const REAL_PRICING = {
-      // Tiers in DESCENDING minQty order — first match wins
+    // Pricing is for DISPLAY ONLY — the Worker recomputes the
+    // authoritative total server-side from quantity + region.
+    // If you change these, update src/index.js in the Worker too.
+    const PRICING = {
       tiers: [
-        { minQty: 5, unit: 1650, label: "5+ units" },
-        { minQty: 3, unit: 1750, label: "3–4 units" },
-        { minQty: 1, unit: 1900, label: "1–2 units" }
-      ],
-      shippingDomestic: 25,
-      shippingInternational: 65
-    };
-
-    const TEST_PRICING = {
-      tiers: [
-        { minQty: 1, unit: 1, label: "TEST PRICING ($1 flat)" }
+        { minQty: 5, unit: 1, label: "5+ units" },
+        { minQty: 3, unit: 1, label: "3–4 units" },
+        { minQty: 1, unit: 1, label: "1–2 units" }
       ],
       shippingDomestic: 0,
       shippingInternational: 0
     };
-
-    const PRICING = TEST_MODE ? TEST_PRICING : REAL_PRICING;
-
-    // Show the test-mode banner if active
-    if (TEST_MODE) {
-      document.getElementById('testModeBanner').hidden = false;
-      document.getElementById('hf_test_mode').value = 'true';
-    }
 
     // -------- Helpers --------
     const fmt = (n) =>
@@ -391,14 +375,12 @@
     const sumShipping= document.getElementById('sumShipping');
     const sumTotal   = document.getElementById('sumTotal');
     const summaryNote= document.getElementById('summaryNote');
-    const hfSubject  = document.getElementById('hf_subject');
-    const hfUnit     = document.getElementById('hf_unit_price');
-    const hfSubtotal = document.getElementById('hf_subtotal');
-    const hfShipping = document.getElementById('hf_shipping');
-    const hfTotal    = document.getElementById('hf_total');
+    const orderError = document.getElementById('orderError');
+    const submitBtn  = document.getElementById('submitBtn');
+    const orderForm  = document.getElementById('orderForm');
     const tierRows   = document.querySelectorAll('.tier-table tbody tr');
 
-    // -------- Recalc summary --------
+    // -------- Recalc summary (display only) --------
     function recalc() {
       let qty = parseInt(qtyInput.value, 10);
       if (isNaN(qty) || qty < 1) qty = 1;
@@ -411,19 +393,15 @@
       const shipping = international ? PRICING.shippingInternational : PRICING.shippingDomestic;
       const total = subtotal + shipping;
 
-      // Update quantity tier note
       tierNote.textContent = `${qty} unit${qty === 1 ? '' : 's'} @ ${fmt(unit)} each — ${getTierLabel(qty)}`;
 
-      // Highlight active tier row (only meaningful in real pricing mode)
       tierRows.forEach(row => {
         const min = parseInt(row.getAttribute('data-tier'), 10);
-        const isActive = !TEST_MODE && qty >= min && (
-          PRICING.tiers.find(t => t.minQty === min)?.unit === unit
-        );
+        const tierUnit = PRICING.tiers.find(t => t.minQty === min)?.unit;
+        const isActive = qty >= min && tierUnit === unit;
         row.classList.toggle('tier-active', isActive);
       });
 
-      // Update summary card
       sumQty.textContent = `${qty} ×`;
       sumUnit.textContent = fmt(unit);
       sumSubtotal.textContent = fmt(subtotal);
@@ -431,20 +409,10 @@
       sumTotal.textContent = fmt(total);
 
       if (international) {
-        summaryNote.textContent = 'International orders include flat $65 shipping. Import duties and VAT are paid by the recipient on delivery. We’ll send the Authorize.Net invoice to your email within one business day.';
+        summaryNote.textContent = 'International orders include flat $65 shipping. Import duties and VAT are paid by the recipient on delivery. Continue below to pay securely on Authorize.Net.';
       } else {
-        summaryNote.textContent = 'We’ll send an invoice from Authorize.Net to your email within one business day. You can pay by credit card or eCheck (bank transfer).';
+        summaryNote.textContent = 'Click below to continue to our secure payment page. You can pay by credit card or eCheck (bank transfer) on the next screen.';
       }
-
-      // Update hidden fields and subject line
-      hfUnit.value = unit.toFixed(2);
-      hfSubtotal.value = subtotal.toFixed(2);
-      hfShipping.value = shipping.toFixed(2);
-      hfTotal.value = total.toFixed(2);
-
-      const subjectPrefix = TEST_MODE ? '[TEST] ' : '';
-      const regionTag = international ? ' INTL' : '';
-      hfSubject.value = `${subjectPrefix}New Order${regionTag} — IGBT Tester (qty ${qty} — ${fmt(total)})`;
     }
 
     // -------- Quantity stepper buttons --------
@@ -463,7 +431,6 @@
     qtyInput.addEventListener('input', recalc);
     qtyInput.addEventListener('change', recalc);
 
-    // -------- Shipping region radios --------
     document.querySelectorAll('input[name="shipping_region"]').forEach(r => {
       r.addEventListener('change', recalc);
     });
@@ -477,6 +444,112 @@
 
     // -------- Initial paint --------
     recalc();
+
+    // ============================================================
+    // Form submission → call Worker → redirect to Auth.Net
+    // ============================================================
+
+    function showError(message) {
+      orderError.textContent = message;
+      orderError.hidden = false;
+      orderError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function clearError() {
+      orderError.textContent = '';
+      orderError.hidden = true;
+    }
+
+    const loadingOverlay = document.getElementById('loadingOverlay');
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      // Button text stays static; the full-page overlay carries the loading state.
+      loadingOverlay.hidden = !isLoading;
+      // Prevent background scroll while overlay is up
+      document.body.style.overflow = isLoading ? 'hidden' : '';
+    }
+
+    function collectFormData() {
+      const fd = new FormData(orderForm);
+      const data = {};
+      for (const [key, value] of fd.entries()) {
+        data[key] = value;
+      }
+      // Ensure the quantity is a number, not a string
+      data.quantity = parseInt(data.quantity, 10);
+      return data;
+    }
+
+    function redirectToAuthNet(paymentUrl, token) {
+      // Auth.Net wants a POST with the token. Build a hidden form
+      // and submit it programmatically.
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = paymentUrl;
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'token';
+      input.value = token;
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
+    }
+
+    orderForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearError();
+
+      // Quick client-side check that the required fields aren't empty.
+      // Browser validation still runs as a backstop.
+      if (!orderForm.checkValidity()) {
+        orderForm.reportValidity();
+        return;
+      }
+
+      if (PAYMENT_WORKER_URL.includes('YOUR-WORKER-SUBDOMAIN')) {
+        showError('Payment system is not configured yet. The PAYMENT_WORKER_URL in order.html needs to be updated to point at the deployed Cloudflare Worker.');
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const data = collectFormData();
+        const response = await fetch(PAYMENT_WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          let detail = `${response.status} ${response.statusText}`;
+          try {
+            const errJson = await response.json();
+            if (errJson.error) detail = errJson.error;
+            if (errJson.detail) detail += ` — ${errJson.detail}`;
+          } catch (_) {}
+          showError(`We couldn’t process your order: ${detail}. Please check your information or contact us.`);
+          setLoading(false);
+          return;
+        }
+
+        const result = await response.json();
+        if (!result.token || !result.paymentUrl) {
+          showError('Payment session could not be created. Please try again or contact us.');
+          setLoading(false);
+          return;
+        }
+
+        // Hand off to Auth.Net hosted payment page
+        redirectToAuthNet(result.paymentUrl, result.token);
+
+      } catch (err) {
+        console.error('Order submission error:', err);
+        showError('We couldn’t reach the payment system. Please check your internet connection and try again, or contact us.');
+        setLoading(false);
+      }
+    });
   </script>
 
 </body>

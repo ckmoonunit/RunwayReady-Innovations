@@ -1121,6 +1121,171 @@ footer a:hover { color: rgba(255,255,255,.7); text-decoration: underline; }
   line-height: 1.55;
 }
 
+/* Inline error message in the order summary card */
+.order-error {
+  background: #FEF2F2;
+  border: 1.5px solid #FCA5A5;
+  color: #991B1B;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-top: 14px;
+}
+
+.btn-submit-order:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 1px 6px rgba(20,85,200,.15);
+}
+
+/* ===================================================
+   FULL-PAGE LOADING OVERLAY (Continue to Payment)
+   =================================================== */
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 14, 32, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: overlayFadeIn 0.2s ease-out;
+}
+
+.loading-overlay[hidden] { display: none; }
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.loading-content {
+  text-align: center;
+  max-width: 380px;
+}
+
+.spinner {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  border: 5px solid rgba(255, 255, 255, 0.18);
+  border-top-color: #4D8BF0;
+  border-right-color: #4D8BF0;
+  border-radius: 50%;
+  animation: spinnerSpin 0.85s linear infinite;
+}
+
+@keyframes spinnerSpin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #FFFFFF;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 8px;
+}
+
+.loading-subtext {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+/* ===================================================
+   ORDER CONFIRMATION PAGE
+   =================================================== */
+
+.confirm-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 24px 88px;
+}
+
+.confirm-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.confirm-icon {
+  width: 78px;
+  height: 78px;
+  background: var(--blue-light);
+  border: 2px solid var(--blue-border);
+  color: var(--blue);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.confirm-card h1 { margin-bottom: 18px; }
+.confirm-card .eyebrow { margin-bottom: 20px; }
+
+.confirm-lead {
+  color: var(--text-mid);
+  font-size: 1rem;
+  max-width: 52ch;
+  margin: 0 auto 32px;
+  line-height: 1.65;
+}
+
+.confirm-steps {
+  text-align: left;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  margin-bottom: 28px;
+}
+
+.confirm-step strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.confirm-step ol {
+  margin: 0;
+  padding-left: 22px;
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.confirm-contact {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 28px;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .confirm-page { padding: 40px 16px 56px; }
+  .confirm-card { padding: 34px 22px; }
+  .confirm-actions { flex-direction: column; align-items: stretch; }
+  .confirm-actions .btn { text-align: center; }
+}
+
 /* ============ Responsive: order page ============ */
 @media (max-width: 768px) {
   .order-page { padding: 32px 16px 56px; }
