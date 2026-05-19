@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Online — Runway Ready Innovations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="inner">
+      <a href="index.html" class="brand">
+        <img src="RRI3.png" alt="Runway Ready Innovations" class="brand-logo">
+        <span class="brand-name">Runway Ready Innovations</span>
+      </a>
+      <nav class="site-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="igbt-tester.html">Testers</a>
+            <ul class="submenu">
+              <li><a href="igbt-tester.html">IGBT Functionality Tester</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="How-To_Videos.html">How-To Videos</a>
+            <ul class="submenu">
+              <li><a href="How-To_Videos_JTP4.html">Oshkosh JTP-4 Field Test</a></li>
+              <li><a href="How-To_Videos_JTP3.html">Oshkosh JTP-3 Field Test</a></li>
+              <li><a href="How-To_Videos.html">Bench Test</a></li>
+            </ul>
+          </li>
+          <li><a href="order.html" class="active">Order</a></li>
+          <li><a href="ContactUs.html">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="order-page">
+
+      <!-- TEST MODE banner — only visible when TEST_MODE is true -->
+      <div id="testModeBanner" class="test-banner" hidden>
+        <strong>TEST MODE ACTIVE.</strong>
+        Prices on this page are placeholders ($1) for end-to-end testing.
+        Real customers should not be ordering right now. To go live, set
+        <code>TEST_MODE = false</code> in this page's script.
+      </div>
+
+      <div class="order-intro">
+        <span class="eyebrow">Order Online</span>
+        <h1>Order Your IGBT Functionality Tester</h1>
+        <p class="lead">
+          Submit your order below. We'll email an invoice from Authorize.Net within one business day,
+          payable by card or eCheck (bank transfer). Units ship after payment clears.
+        </p>
+      </div>
+
+      <form id="orderForm" class="order-layout" action="https://formspree.io/f/xlgzranb" method="POST">
+
+        <!-- ============ Left Column: Order Form ============ -->
+        <div class="order-form-col">
+
+          <!-- Product summary -->
+          <section class="form-section">
+            <h2>Product</h2>
+            <div class="product-summary">
+              <img src="RRI3.png" alt="IGBT Functionality Tester" class="product-thumb">
+              <div>
+                <h3>IGBT Functionality Tester</h3>
+                <p>Handheld diagnostic tool for Oshkosh JTP-3 and JTP-4 ground power units. Tests IGBTs in-unit, no disassembly required.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Quantity & Tier display -->
+          <section class="form-section">
+            <h2>Quantity</h2>
+
+            <div class="qty-row">
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" data-action="dec" aria-label="Decrease quantity">&minus;</button>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="99" class="qty-input" aria-label="Quantity">
+                <button type="button" class="qty-btn" data-action="inc" aria-label="Increase quantity">+</button>
+              </div>
+              <div class="qty-tier-note" id="qtyTierNote">1 unit @ $1,900 each</div>
+            </div>
+
+            <table class="tier-table" aria-label="Volume pricing">
+              <thead>
+                <tr><th>Quantity</th><th>Price per unit</th></tr>
+              </thead>
+              <tbody>
+                <tr data-tier="1"><td>1&ndash;2 units</td><td>$1,900</td></tr>
+                <tr data-tier="3"><td>3&ndash;4 units</td><td>$1,750</td></tr>
+                <tr data-tier="5"><td>5+ units</td><td>$1,650</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Shipping region -->
+          <section class="form-section">
+            <h2>Shipping</h2>
+            <div class="radio-group">
+              <label class="radio-card">
+                <input type="radio" name="shipping_region" value="domestic" checked>
+                <div>
+                  <strong>United States</strong>
+                  <span>Flat rate &mdash; $25 shipping</span>
+                </div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="shipping_region" value="international">
+                <div>
+                  <strong>International</strong>
+                  <span>Flat rate &mdash; $65 shipping. Import duties and VAT are paid by the recipient.</span>
+                </div>
+              </label>
+            </div>
+          </section>
+
+          <!-- Customer info -->
+          <section class="form-section">
+            <h2>Your Information</h2>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Full Name <span class="req">*</span></label>
+                <input class="form-input" type="text" id="name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-input" type="text" id="title" name="title" placeholder="Maintenance Manager">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="company">Company <span class="req">*</span></label>
+                <input class="form-input" type="text" id="company" name="company" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone <span class="req">*</span></label>
+                <input class="form-input" type="tel" id="phone" name="phone" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email <span class="req">*</span></label>
+              <input class="form-input" type="email" id="email" name="email" required>
+              <p class="form-hint">We'll send the Authorize.Net invoice to this email address.</p>
+            </div>
+          </section>
+
+          <!-- Shipping address -->
+          <section class="form-section">
+            <h2>Shipping Address</h2>
+
+            <div class="form-group">
+              <label class="form-label" for="ship_attn">Attention / Recipient Name</label>
+              <input class="form-input" type="text" id="ship_attn" name="ship_attn" placeholder="Receiving Dept., Hangar 4, etc.">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ship_street">Street Address <span class="req">*</span></label>
+              <input class="form-input" type="text" id="ship_street" name="ship_street" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="ship_city">City <span class="req">*</span></label>
+                <input class="form-input" type="text" id="ship_city" name="ship_city" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ship_state">State / Province <span class="req">*</span></label>
+                <input class="form-input" type="text" id="ship_state" name="ship_state" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="ship_zip">Postal Code <span class="req">*</span></label>
+                <input class="form-input" type="text" id="ship_zip" name="ship_zip" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="ship_country">Country <span class="req">*</span></label>
+                <input class="form-input" type="text" id="ship_country" name="ship_country" value="USA" required>
+              </div>
+            </div>
+          </section>
+
+          <!-- Billing address -->
+          <section class="form-section">
+            <h2>Billing Address</h2>
+
+            <label class="checkbox-row">
+              <input type="checkbox" id="sameAsShipping" name="billing_same" checked>
+              <span>Same as shipping address</span>
+            </label>
+
+            <div id="billingFields" class="billing-fields" hidden>
+              <div class="form-group">
+                <label class="form-label" for="bill_street">Street Address</label>
+                <input class="form-input" type="text" id="bill_street" name="bill_street">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="bill_city">City</label>
+                  <input class="form-input" type="text" id="bill_city" name="bill_city">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="bill_state">State / Province</label>
+                  <input class="form-input" type="text" id="bill_state" name="bill_state">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="bill_zip">Postal Code</label>
+                  <input class="form-input" type="text" id="bill_zip" name="bill_zip">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="bill_country">Country</label>
+                  <input class="form-input" type="text" id="bill_country" name="bill_country" value="USA">
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Additional details -->
+          <section class="form-section">
+            <h2>Additional Details</h2>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="po_number">PO Number <span class="optional">(optional)</span></label>
+                <input class="form-input" type="text" id="po_number" name="po_number" placeholder="If your company requires a PO">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="needed_by">Needed By <span class="optional">(optional)</span></label>
+                <input class="form-input" type="date" id="needed_by" name="needed_by">
+              </div>
+            </div>
+
+            <label class="checkbox-row">
+              <input type="checkbox" id="taxExempt" name="tax_exempt" value="yes">
+              <span>This order is tax-exempt &mdash; we'll follow up to collect a copy of your resale or exemption certificate.</span>
+            </label>
+
+            <div class="form-group" style="margin-top: 18px;">
+              <label class="form-label" for="notes">Special Instructions <span class="optional">(optional)</span></label>
+              <textarea class="form-textarea" id="notes" name="notes" placeholder="Delivery instructions, dock hours, training requests, etc."></textarea>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ============ Right Column: Sticky Order Summary ============ -->
+        <aside class="order-summary-col">
+          <div class="summary-card">
+            <h3>Order Summary</h3>
+
+            <div class="summary-row">
+              <span>IGBT Functionality Tester</span>
+              <span id="sumQty">1 &times;</span>
+            </div>
+            <div class="summary-row">
+              <span>Unit price</span>
+              <span id="sumUnit">$1,900.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="sumSubtotal">$1,900.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span id="sumShipping">$25.00</span>
+            </div>
+
+            <hr class="summary-divider">
+
+            <div class="summary-row summary-total">
+              <span>Total</span>
+              <span id="sumTotal">$1,925.00</span>
+            </div>
+
+            <p class="summary-note" id="summaryNote">
+              We'll send an invoice from Authorize.Net to your email within one business day.
+              You can pay by credit card or eCheck (bank transfer).
+            </p>
+
+            <button type="submit" class="btn btn-primary btn-submit-order">
+              Submit Order Request
+            </button>
+
+            <p class="summary-fineprint">
+              Submitting this form sends us your order details. No payment is taken on this page.
+              You'll pay through the Authorize.Net invoice we email you.
+            </p>
+          </div>
+        </aside>
+
+        <!-- ============ Hidden fields for Formspree email ============ -->
+        <input type="hidden" id="hf_subject" name="_subject" value="New Order — RRI Website">
+        <input type="hidden" id="hf_product" name="product" value="IGBT Functionality Tester">
+        <input type="hidden" id="hf_unit_price" name="unit_price_usd" value="">
+        <input type="hidden" id="hf_subtotal" name="subtotal_usd" value="">
+        <input type="hidden" id="hf_shipping" name="shipping_usd" value="">
+        <input type="hidden" id="hf_total" name="total_usd" value="">
+        <input type="hidden" id="hf_test_mode" name="test_mode" value="false">
+
+      </form>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Runway Ready Innovations. All rights reserved.</p>
+  </footer>
+
+  <script src="nav.js"></script>
+
+  <!-- =================== Pricing & Form Logic =================== -->
+  <script>
+    // ============================================================
+    // TEST_MODE: set to true for $1 end-to-end testing.
+    // Flip to false when ready to go live with real prices.
+    // ============================================================
+    const TEST_MODE = true;
+
+    const REAL_PRICING = {
+      // Tiers in DESCENDING minQty order — first match wins
+      tiers: [
+        { minQty: 5, unit: 1650, label: "5+ units" },
+        { minQty: 3, unit: 1750, label: "3–4 units" },
+        { minQty: 1, unit: 1900, label: "1–2 units" }
+      ],
+      shippingDomestic: 25,
+      shippingInternational: 65
+    };
+
+    const TEST_PRICING = {
+      tiers: [
+        { minQty: 1, unit: 1, label: "TEST PRICING ($1 flat)" }
+      ],
+      shippingDomestic: 0,
+      shippingInternational: 0
+    };
+
+    const PRICING = TEST_MODE ? TEST_PRICING : REAL_PRICING;
+
+    // Show the test-mode banner if active
+    if (TEST_MODE) {
+      document.getElementById('testModeBanner').hidden = false;
+      document.getElementById('hf_test_mode').value = 'true';
+    }
+
+    // -------- Helpers --------
+    const fmt = (n) =>
+      n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+
+    function getUnitPrice(qty) {
+      for (const tier of PRICING.tiers) {
+        if (qty >= tier.minQty) return tier.unit;
+      }
+      return PRICING.tiers[PRICING.tiers.length - 1].unit;
+    }
+
+    function getTierLabel(qty) {
+      for (const tier of PRICING.tiers) {
+        if (qty >= tier.minQty) return tier.label;
+      }
+      return PRICING.tiers[PRICING.tiers.length - 1].label;
+    }
+
+    // -------- Element refs --------
+    const qtyInput   = document.getElementById('quantity');
+    const tierNote   = document.getElementById('qtyTierNote');
+    const sumQty     = document.getElementById('sumQty');
+    const sumUnit    = document.getElementById('sumUnit');
+    const sumSubtotal= document.getElementById('sumSubtotal');
+    const sumShipping= document.getElementById('sumShipping');
+    const sumTotal   = document.getElementById('sumTotal');
+    const summaryNote= document.getElementById('summaryNote');
+    const hfSubject  = document.getElementById('hf_subject');
+    const hfUnit     = document.getElementById('hf_unit_price');
+    const hfSubtotal = document.getElementById('hf_subtotal');
+    const hfShipping = document.getElementById('hf_shipping');
+    const hfTotal    = document.getElementById('hf_total');
+    const tierRows   = document.querySelectorAll('.tier-table tbody tr');
+
+    // -------- Recalc summary --------
+    function recalc() {
+      let qty = parseInt(qtyInput.value, 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      if (qty > 99) qty = 99;
+      qtyInput.value = qty;
+
+      const unit = getUnitPrice(qty);
+      const subtotal = qty * unit;
+      const international = document.querySelector('input[name="shipping_region"]:checked').value === 'international';
+      const shipping = international ? PRICING.shippingInternational : PRICING.shippingDomestic;
+      const total = subtotal + shipping;
+
+      // Update quantity tier note
+      tierNote.textContent = `${qty} unit${qty === 1 ? '' : 's'} @ ${fmt(unit)} each — ${getTierLabel(qty)}`;
+
+      // Highlight active tier row (only meaningful in real pricing mode)
+      tierRows.forEach(row => {
+        const min = parseInt(row.getAttribute('data-tier'), 10);
+        const isActive = !TEST_MODE && qty >= min && (
+          PRICING.tiers.find(t => t.minQty === min)?.unit === unit
+        );
+        row.classList.toggle('tier-active', isActive);
+      });
+
+      // Update summary card
+      sumQty.textContent = `${qty} ×`;
+      sumUnit.textContent = fmt(unit);
+      sumSubtotal.textContent = fmt(subtotal);
+      sumShipping.textContent = fmt(shipping);
+      sumTotal.textContent = fmt(total);
+
+      if (international) {
+        summaryNote.textContent = 'International orders include flat $65 shipping. Import duties and VAT are paid by the recipient on delivery. We’ll send the Authorize.Net invoice to your email within one business day.';
+      } else {
+        summaryNote.textContent = 'We’ll send an invoice from Authorize.Net to your email within one business day. You can pay by credit card or eCheck (bank transfer).';
+      }
+
+      // Update hidden fields and subject line
+      hfUnit.value = unit.toFixed(2);
+      hfSubtotal.value = subtotal.toFixed(2);
+      hfShipping.value = shipping.toFixed(2);
+      hfTotal.value = total.toFixed(2);
+
+      const subjectPrefix = TEST_MODE ? '[TEST] ' : '';
+      const regionTag = international ? ' INTL' : '';
+      hfSubject.value = `${subjectPrefix}New Order${regionTag} — IGBT Tester (qty ${qty} — ${fmt(total)})`;
+    }
+
+    // -------- Quantity stepper buttons --------
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.getAttribute('data-action');
+        let qty = parseInt(qtyInput.value, 10) || 1;
+        qty = action === 'inc' ? qty + 1 : qty - 1;
+        if (qty < 1) qty = 1;
+        if (qty > 99) qty = 99;
+        qtyInput.value = qty;
+        recalc();
+      });
+    });
+
+    qtyInput.addEventListener('input', recalc);
+    qtyInput.addEventListener('change', recalc);
+
+    // -------- Shipping region radios --------
+    document.querySelectorAll('input[name="shipping_region"]').forEach(r => {
+      r.addEventListener('change', recalc);
+    });
+
+    // -------- "Same as shipping" toggle --------
+    const sameAsShipping = document.getElementById('sameAsShipping');
+    const billingFields = document.getElementById('billingFields');
+    sameAsShipping.addEventListener('change', () => {
+      billingFields.hidden = sameAsShipping.checked;
+    });
+
+    // -------- Initial paint --------
+    recalc();
+  </script>
+
+</body>
+</html>
